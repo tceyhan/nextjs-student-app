@@ -2,8 +2,6 @@
 
 import React from "react";
 import { Button, Label, TextInput } from "flowbite-react";
-import styles from "./sign.module.css";
-import Image from "next/image";
 import LineComp from "../../assets/LineComp";
 import Link from "next/link";
 
