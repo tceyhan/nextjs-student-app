@@ -4,11 +4,20 @@ import React from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 import LineComp from "../../assets/LineComp";
 import Link from "next/link";
+import { useRouter } from 'next/navigation'
 
 export default function SignIn() {
+  const router = useRouter()
+  const handleSubmit= (e) => {
+    e.preventDefault();
+    router.push('/dashboard')
+  }
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-gradient-to-r from-[#feaf00] to-[#f8d442]">
-      <form className="box-content flex flex-col gap-4 bg-white w-[475px] h-[550px] rounded-[20px] shadow-[2px_5px_10px_0px_rgba(0, 0, 0, 0.1)] py-11 px-[30px]">
+      <form
+        className="box-content flex flex-col gap-4 bg-white w-[475px] h-[550px] rounded-[20px] shadow-[2px_5px_10px_0px_rgba(0, 0, 0, 0.1)] py-11 px-[30px]"
+        onSubmit={handleSubmit}
+      >
         <div className="flex flex-row items-center justify-center my-11 mx-4">
           <LineComp className="mr-2" />
           <h4 className="text-2xl font-bold">MANAGE COURSES</h4>
@@ -46,11 +55,21 @@ export default function SignIn() {
             type="password"
             placeholder="Enter your password"
           />
-        </div> 
-        <Button className="bg-[#FEAF00] hover:bg-[#FEAF00 text-sm] rounder mb-[30px] "type="submit">SIGN IN</Button>
+        </div>
+        <Button
+          className="bg-[#FEAF00] hover:bg-[#FEAF00 text-sm] rounder mb-[30px] "
+          type="submit"
+        >
+          SIGN IN
+        </Button>
         <div className="flex flex-row items-center justify-center">
-          <p className="text-[14px] text-[#6C6C6C] mr-1">Forget your password?</p>
-          <Link href="http://" className="text-[14px] text-[#FEAF00] underline font-semibold">
+          <p className="text-[14px] text-[#6C6C6C] mr-1">
+            Forget your password?
+          </p>
+          <Link
+            href="#"
+            className="text-[14px] text-[#FEAF00] underline font-semibold"
+          >
             Reset Password
           </Link>
         </div>
