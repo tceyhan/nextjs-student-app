@@ -36,7 +36,7 @@ const AsideMenu = () => {
         <h5 className={styles.position}>Admin</h5>
       </div>
       <div className={styles.menuContainer}>
-        <Link className={styles.menu} href="/home">
+        <Link className={styles.menu} href="/dashboard/home">
           <Home className={styles.icon} />
           <h6 className={styles.menuName}>Home</h6>
         </Link>
@@ -44,7 +44,7 @@ const AsideMenu = () => {
           <Bookmark className={styles.icon} />
           <h6 className={styles.menuName}>Course</h6>
         </Link>
-        <Link className={styles.menu} href="/students">
+        <Link className={styles.menu} href="/dashboard/student">
           <Graduation className={styles.icon} />
           <h6 className={styles.menuName}>Students</h6>
         </Link>

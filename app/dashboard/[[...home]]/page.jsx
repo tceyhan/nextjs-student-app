@@ -1,7 +1,7 @@
 import React from "react";
-import AsideMenu from "../components/asideMenu/asideMenu";
-import TopComp from "../components/topComponent/TopComp";
-import HomeComp from "../components/homeComp/HomeComp";
+import AsideMenu from "../../components/asideMenu/asideMenu";
+import TopComp from "../../components/topComponent/TopComp";
+import HomeComp from "../../components/homeComp/HomeComp";
 
 const Dashboard = () => {
   return (
