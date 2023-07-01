@@ -3,7 +3,7 @@ const LineComp = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={6}
-    height={39}
+    height={23}
     fill="none"
     {...props}
   >

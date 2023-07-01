@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Button, Label, TextInput } from "flowbite-react";
-import LineComp from "../../assets/LineComp";
+import LineComp from "../components/LineComp";
 import Link from "next/link";
 import { useRouter } from 'next/navigation'
 

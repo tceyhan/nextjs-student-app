@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 30px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  border-radius: 8px; 
+  width: 255px;
+  height: 157px;
+  padding: 20px;
+}
+.cardStudentBg {   
+   background-color: #f0f9ff;
+}
+.cardCourseBg {   
+   background-color:  #FEF6FB;
+}
+.cardPaymentBg {   
+   background-color:  #FEFBEC;
+}
+.cardUsersBg {   
+    background: linear-gradient(134deg, #FEAF00 0%, #F8D442 100%);
+}
+
+.categoryName {
+  color: #6c6c6c;
+  font-size: 14px;
+  //margin-top: 15px;
+  margin-bottom: 10px;
+}
+.number {
+  color: #000;
+  font-size: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+  align-self: flex-end;
+}
