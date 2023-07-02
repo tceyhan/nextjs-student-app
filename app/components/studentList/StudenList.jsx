@@ -4,6 +4,7 @@ import UserCard from "../userCard/UserCard";
 import styles from "./styles.module.css";
 import { SearchIcon } from "../../../public/icons";
 import ModalForm from "../toggleModal/ModalForm";
+import axios from "axios";
 
 const initialValues = {
   firstName: "",
@@ -50,16 +51,17 @@ const StudenList = () => {
 //! filter metodu içeriden map ederken kullanıldı buna şimdilik gerek kalmadı.
 
 //? USER DELETE FUNCTİON
-const handleRemoveUser = userId => {
+const handleRemoveUser = async (userId) => {
   const filteredUserList = student.filter(item => item.id !== userId);
   // console.log(filteredUserList);
+  await axios.delete(`https://dummyjson.com/users/${userId}`)
   setStudent(filteredUserList);
 };
 
   useEffect(() => {
     getUsers();   
   }, []);
-
+console.log(student);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
