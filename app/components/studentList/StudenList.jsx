@@ -19,6 +19,7 @@ const StudenList = () => {
   const [openModal, setOpenModal] = useState();
   const [modal, setModal] = useState(false);
   const [value, setValue] = useState(initialValues);
+  const [searchValue, setSearchValue] = useState("")
 
   console.log(value);
 
@@ -30,11 +31,27 @@ const StudenList = () => {
     setStudent(students.users);
   };
 
+//   const handleSearch =  () => {    
+//     let filteredList = student.filter((user)=>{
+//       const searchedText = searchValue.toLowerCase();
+//       const name = user.firstName.toLowerCase();
+//       const surname = user.lastName.toLowerCase();
+//       let res1 = name.indexOf(searchedText) > -1
+//       let res2 = surname.indexOf(searchedText) > -1
+//       if(res1 || res2) {
+//         return user;
+//       }else {
+//         return console.log("no user feature")
+//       }
+//     })
+//     console.log(filteredList)
+//     setStudent(filteredList);
+// }
+//! filter metodu içeriden map ederken kullanıldı buna şimdilik gerek kalmadı.
   useEffect(() => {
-    getUsers();
+    getUsers();   
   }, []);
 
-  console.log(student);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -44,6 +61,8 @@ const StudenList = () => {
             className={styles.searchInput}
             type="search"
             placeholder="Search.."
+            value={searchValue}
+            onChange={(e)=> setSearchValue(e.target.value)}
           />
           <SearchIcon className={styles.searchIcon} />
           <button
@@ -67,7 +86,9 @@ const StudenList = () => {
           <li className={styles.fieldText}>Company Name</li>
           <li className={styles.fieldText}></li>
         </ul>
-        {student?.map((user) => (
+        {student?.filter((item) =>{
+          return searchValue.toLowerCase() === "" ? item : item.firstName.toLowerCase().includes(searchValue)
+        } ).map((user) => (
           <UserCard user={user} key={user.id} />
         ))}
       </div>
@@ -79,6 +100,7 @@ const StudenList = () => {
             value={value}
             setValue={setValue}
             initialValues={initialValues}
+            setModal={setModal}
           />
         )}
       </div>

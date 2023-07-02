@@ -3,18 +3,25 @@
 import { Button, Label, Modal, TextInput } from "flowbite-react";
 import axios from "axios";
 
-const ModalForm = ({ openModal, setOpenModal, value, setValue, initialValues }) => {
+const ModalForm = ({
+  openModal,
+  setOpenModal,
+  value,
+  setValue,
+  initialValues,
+  setModal
+}) => {
   const handleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
-    console.log(value);
+    console.log();
     try {
-      await axios.post("https://dummyjson.com/users/add", value );
+      await axios.post("https://dummyjson.com/users/add", value);
       setValue(initialValues);
+      setModal(false)      
     } catch (error) {
       return console.log(error);
     }
@@ -31,7 +38,7 @@ const ModalForm = ({ openModal, setOpenModal, value, setValue, initialValues }) 
         <Modal.Header />
         <Modal.Body>
           <div className="space-y-6">
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+            <h3 className="text-xl font-medium font-semibold text-gray-900 dark:text-white">
               Add New Account
             </h3>
             <form onSubmit={handleSubmit}>
@@ -42,7 +49,7 @@ const ModalForm = ({ openModal, setOpenModal, value, setValue, initialValues }) 
                 <TextInput
                   name="firstName"
                   id="firstname"
-                  placeholder="Enter first name.."                 
+                  placeholder="Enter first name.."
                   value={value.firstName}
                   onChange={handleChange}
                   required
@@ -111,9 +118,9 @@ const ModalForm = ({ openModal, setOpenModal, value, setValue, initialValues }) 
                   required
                 />
               </div>
-              <div className="w-full">
-                <Button className="bg-[#FEAF00]" type="submit">
-                  ADD
+              <div className="flex items-center justify-center mt-2">
+                <Button className="bg-[#FEAF00] w-full" type="submit">
+                  <p className="text-black text-lg font-bold">ADD</p>
                 </Button>
               </div>
             </form>
