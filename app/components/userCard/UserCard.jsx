@@ -2,18 +2,25 @@
 
 import Image from "next/image";
 import React from "react";
+import styles from "./styles.module.css";
+import { DeleteIcon, EditIcon } from "../../../public/icons";
 
 const UserCard = ({ user }) => {
- 
   return (
-    <div className="flex justify-between ">
-      <Image src={user.image} alt={user.firstName} width={64} height={110} />
-      <h6>{user.firstName} {user.lastName}</h6>
-      <h6>{user.email}</h6>
-      <h6>{user.phone}</h6>
-      <h6>{user.domain}</h6>
-      <h6>{user.company.name}</h6>
-    </div>
+    <ul className={styles.container}>
+      <li className={styles.Img}>
+        <Image src={user.image} alt={user.firstName} width={60} height={60} />
+      </li>
+      <li className={styles.field}>
+        {user.firstName} {user.lastName}
+      </li>
+      <li className={styles.field}>{user.email}</li>
+      <li className={styles.field}>{user.phone}</li>
+      <li className={styles.field}>{user.domain}</li>
+      <li className={styles.field}>{user.company.name}</li>
+      <li className={styles.fieldIcon}><EditIcon/> <DeleteIcon/></li>
+     
+    </ul>
   );
 };
 

@@ -11,4 +11,7 @@ export {default as Kep} from "./graduation-cap-homecomp.svg";
 export {default as BookMarkHome} from "./bookmark-homecomp.svg";
 export {default as UsdSquareHome} from "./usd-square-homecomp.svg";
 export {default as UsersIcon} from "./users-homecomp.svg";
+export {default as SearchIcon} from "./searchInput.svg";
+export {default as EditIcon} from "./editIcon.svg";
+export {default as DeleteIcon} from "./deleteIcon.svg";
 

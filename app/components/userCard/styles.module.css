@@ -1,0 +1,31 @@
+.container {
+  @apply flex items-center justify-between bg-[#FFF];
+  /* padding: 20px 20px; */
+  height: 85px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+.Img {
+  border-radius: 4px;
+  /* border: 1px solid; */
+  width: 60px;
+  height: 60px;
+}
+.field {
+  display: flex;
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  /* border:1px solid #000; */
+  width: 140px;
+  justify-content: center;
+  align-items: center;
+}
+.fieldIcon {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 33px;
+  width: 140px;
+}
