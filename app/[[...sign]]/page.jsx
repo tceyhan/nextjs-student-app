@@ -2,9 +2,10 @@
 
 import React from "react";
 import { Button, Label, TextInput } from "flowbite-react";
-import LineComp from "../components/LineComp";
+
 import Link from "next/link";
 import { useRouter } from 'next/navigation'
+import { LineIcon } from "../../public/icons";
 
 export default function SignIn() {
   const router = useRouter()
@@ -19,7 +20,7 @@ export default function SignIn() {
         onSubmit={handleSubmit}
       >
         <div className="flex flex-row items-center justify-center my-11 mx-4">
-          <LineComp className="mr-2" />
+          <LineIcon className="mr-2" />
           <h4 className="text-2xl font-bold">MANAGE COURSES</h4>
         </div>
         <div className="flex flex-col items-center">

@@ -3,6 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   margin: 30px;
+  background: #FDFDFD;
 }
 .card {
   display: flex;

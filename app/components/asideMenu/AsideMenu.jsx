@@ -4,11 +4,12 @@ import React from "react";
 import styles from "./styles.module.css";
 import Image from "next/image";
 import avatar from "../../../public/images/avatar.png";
-import LineComp from "../LineComp";
+
 import {
   Bookmark,
   Graduation,
   Home,
+  LineIcon,
   Logout,
   Report,
   Settings,
@@ -22,7 +23,7 @@ const AsideMenu = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <LineComp className="mr-2 h-[20px]" />
+        <LineIcon className="mr-2 h-[20px]" />
         <h4 className="text-[20px] font-bold">MANAGE COURSES</h4>
       </div>
       <div className={styles.avatarContainer}>
@@ -59,14 +60,15 @@ const AsideMenu = () => {
         <Link className={styles.menu} href="/settings">
           <Settings className={styles.icon} />
           <h6 className={styles.menuName}>Settings</h6>
-        </Link>
+        </Link>        
       </div>
       <div className={styles.logoutContainer}>
-        <Link className={styles.menu} href="/logout">
-          <h6 className={styles.logout}>Logout</h6>
-          <Logout className={styles.iconLogout} />
-        </Link>
+          <Link className={styles.menu} href="/logout">
+            <h6 className={styles.logoutText}>Logout</h6>
+            <Logout className={styles.iconLogout} />
+          </Link>
       </div>
+     
     </div>
   );
 };
