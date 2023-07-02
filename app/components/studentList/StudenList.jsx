@@ -48,6 +48,14 @@ const StudenList = () => {
 //     setStudent(filteredList);
 // }
 //! filter metodu içeriden map ederken kullanıldı buna şimdilik gerek kalmadı.
+
+//? USER DELETE FUNCTİON
+const handleRemoveUser = userId => {
+  const filteredUserList = student.filter(item => item.id !== userId);
+  // console.log(filteredUserList);
+  setStudent(filteredUserList);
+};
+
   useEffect(() => {
     getUsers();   
   }, []);
@@ -89,7 +97,7 @@ const StudenList = () => {
         {student?.filter((item) =>{
           return searchValue.toLowerCase() === "" ? item : item.firstName.toLowerCase().includes(searchValue)
         } ).map((user) => (
-          <UserCard user={user} key={user.id} />
+          <UserCard user={user} key={user.id} handleRemoveUser={handleRemoveUser}/>
         ))}
       </div>
       <div>
