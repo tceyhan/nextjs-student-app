@@ -4,16 +4,26 @@ import UserCard from "../userCard/UserCard";
 import styles from "./styles.module.css";
 import { SearchIcon } from "../../../public/icons";
 import ModalForm from "../toggleModal/ModalForm";
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
+
+const initialValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  domain: "",
+  company: "",
+};
 
 const StudenList = () => {
   const [student, setStudent] = useState([]);
   const [openModal, setOpenModal] = useState();
   const [modal, setModal] = useState(false);
-  
+  const [value, setValue] = useState(initialValues);
+
+  console.log(value);
 
   const getUsers = async () => {
-    let students = await fetch("https://dummyjson.com/users/?limit=6").then(
+    let students = await fetch("https://dummyjson.com/users/").then(
       (res) => res.json()
     );
     console.log(students.users);
@@ -39,14 +49,13 @@ const StudenList = () => {
           <button
             className={styles.btn}
             onClick={() => {
-              setOpenModal("form-elements")
-              setModal(true)
+              setOpenModal("form-elements");
+              setModal(true);
             }}
           >
             NEW ACCOUNT
           </button>
         </div>
-       
       </div>
       <div className="flex flex-col justify-between">
         <ul className="flex justify-between items-center p-[30px]">
@@ -63,7 +72,15 @@ const StudenList = () => {
         ))}
       </div>
       <div>
-        {modal && <ModalForm openModal={openModal} setOpenModal={setOpenModal}/>}        
+        {modal && (
+          <ModalForm
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+            value={value}
+            setValue={setValue}
+            initialValues={initialValues}
+          />
+        )}
       </div>
     </div>
   );
