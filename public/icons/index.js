@@ -15,4 +15,7 @@ export {default as SearchIcon} from "./searchInput.svg";
 export {default as EditIcon} from "./editIcon.svg";
 export {default as DeleteIcon} from "./deleteIcon.svg";
 export {default as LineIcon} from "./line-asideMenu.svg";
+export {default as ArrowLeft} from "./arrowLeft.svg";
+export {default as ArrowRight} from "./arrowRight.svg";
+
 

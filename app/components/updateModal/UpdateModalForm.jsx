@@ -2,26 +2,25 @@
 
 import { Button, Label, Modal, TextInput } from "flowbite-react";
 import axios from "axios";
+import { useState } from "react";
 
-const ModalForm = ({
+const UpdateModalForm = ({
   openModal,
   setOpenModal,
-  value,
-  setValue,
-  initialValues,
-  setModal
+  setUpdateModal,
+  user,
+  setUser,
 }) => {
   const handleChange = (e) => {
-    setValue({ ...value, [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log();
     try {
-      await axios.post("https://dummyjson.com/users/add", value);
-      setValue(initialValues);
-      setModal(false)      
+      await axios.post(`https://dummyjson.com/users/${params.id}`, user);
+
+      setUpdateModal(false);
     } catch (error) {
       return console.log(error);
     }
@@ -38,8 +37,8 @@ const ModalForm = ({
         <Modal.Header />
         <Modal.Body>
           <div className="space-y-6">
-            <h3 className="text-xl font-medium font-semibold text-gray-900 dark:text-white">
-              Add New Account
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+              Update User
             </h3>
             <form onSubmit={handleSubmit}>
               <div>
@@ -50,7 +49,7 @@ const ModalForm = ({
                   name="firstName"
                   id="firstname"
                   placeholder="Enter first name.."
-                  value={value.firstName}
+                  value={user?.firstName}
                   onChange={handleChange}
                   required
                 />
@@ -63,7 +62,7 @@ const ModalForm = ({
                   name="lastName"
                   id="lastname"
                   placeholder="Enter last name.."
-                  value={value.lastName}
+                  value={user?.lastName}
                   onChange={handleChange}
                   required
                 />
@@ -76,7 +75,7 @@ const ModalForm = ({
                   name="email"
                   id="email"
                   placeholder="name@company.com"
-                  value={value.email}
+                  value={user?.email}
                   onChange={handleChange}
                   required
                 />
@@ -89,7 +88,7 @@ const ModalForm = ({
                   name="phone"
                   id="phone"
                   type="phone"
-                  value={value.phone}
+                  value={user?.phone}
                   onChange={handleChange}
                   required
                 />
@@ -101,7 +100,7 @@ const ModalForm = ({
                 <TextInput
                   name="domain"
                   id="website"
-                  value={value.domain}
+                  value={user?.domain}
                   onChange={handleChange}
                   // required
                 />
@@ -113,14 +112,14 @@ const ModalForm = ({
                 <TextInput
                   name="company"
                   id="company"
-                  value={value.company}
+                  value={user?.company}
                   onChange={handleChange}
                   required
                 />
               </div>
               <div className="flex items-center justify-center mt-2">
                 <Button className="bg-[#FEAF00] w-full" type="submit">
-                  <p className="text-black text-lg font-bold">ADD</p>
+                  <p className="text-black text-lg font-bold">UPDATE</p>
                 </Button>
               </div>
             </form>
@@ -131,4 +130,4 @@ const ModalForm = ({
   );
 };
 
-export default ModalForm;
+export default UpdateModalForm;

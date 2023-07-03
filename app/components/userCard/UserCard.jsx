@@ -5,7 +5,7 @@ import React from "react";
 import styles from "./styles.module.css";
 import { DeleteIcon, EditIcon } from "../../../public/icons";
 
-const UserCard = ({ user, handleRemoveUser }) => {
+const UserCard = ({ user, handleRemoveUser, handleUpdateUser }) => {
   const { id,firstName, lastName, email, phone, domain, company, image } = user;
   return (
     <ul className={styles.container}>
@@ -25,7 +25,7 @@ const UserCard = ({ user, handleRemoveUser }) => {
       <li className={styles.field}>{domain ?? ""}</li>
       <li className={styles.field}>{company.name ?? ""}</li>
       <li className={styles.fieldIcon}>
-        <EditIcon /> <DeleteIcon onClick={() => handleRemoveUser(id)}/>
+        <EditIcon onClick={() => handleUpdateUser(id)} /> <DeleteIcon onClick={() => handleRemoveUser(id)}/>
       </li>
     </ul>
   );

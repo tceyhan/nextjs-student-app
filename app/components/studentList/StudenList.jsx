@@ -2,66 +2,87 @@
 import React, { useEffect, useState } from "react";
 import UserCard from "../userCard/UserCard";
 import styles from "./styles.module.css";
-import { SearchIcon } from "../../../public/icons";
-import ModalForm from "../toggleModal/ModalForm";
+import { ArrowLeft, ArrowRight, SearchIcon } from "../../../public/icons";
+import CreateModalForm from "../createModalForm/CreateModalForm";
+import UpdateModalForm from "../updateModal/UpdateModalForm";
 import axios from "axios";
-
-const initialValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  phone: "",
-  domain: "",
-  company: "",
-};
 
 const StudenList = () => {
   const [student, setStudent] = useState([]);
   const [openModal, setOpenModal] = useState();
   const [modal, setModal] = useState(false);
-  const [value, setValue] = useState(initialValues);
-  const [searchValue, setSearchValue] = useState("")
+  const [updateModal, setUpdateModal] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [page, setPage] = useState(6);
+  const [all, setAll] = useState();
+  const [user, setUser] = useState();
 
-  console.log(value);
-
-  const getUsers = async () => {
-    let students = await fetch("https://dummyjson.com/users/").then(
-      (res) => res.json()
+  const getAllUsers = async () => {
+    let users = await fetch("https://dummyjson.com/users/").then((res) =>
+      res.json()
     );
+    
+    console.log("all", users);
+    setAll(users.limit);
+  };
+  const getUsers = async () => {
+    let students = await fetch(
+      `https://dummyjson.com/users?limit=${page}`
+    ).then((res) => res.json());
     console.log(students.users);
     setStudent(students.users);
   };
 
-//   const handleSearch =  () => {    
-//     let filteredList = student.filter((user)=>{
-//       const searchedText = searchValue.toLowerCase();
-//       const name = user.firstName.toLowerCase();
-//       const surname = user.lastName.toLowerCase();
-//       let res1 = name.indexOf(searchedText) > -1
-//       let res2 = surname.indexOf(searchedText) > -1
-//       if(res1 || res2) {
-//         return user;
-//       }else {
-//         return console.log("no user feature")
-//       }
-//     })
-//     console.log(filteredList)
-//     setStudent(filteredList);
-// }
-//! filter metodu içeriden map ederken kullanıldı buna şimdilik gerek kalmadı.
+  //! filter metodu içeriden map ederken kullanıldı buna şimdilik gerek kalmadı.
+  //   const handleSearch =  () => {
+  //     let filteredList = student.filter((user)=>{
+  //       const searchedText = searchValue.toLowerCase();
+  //       const name = user.firstName.toLowerCase();
+  //       const surname = user.lastName.toLowerCase();
+  //       let res1 = name.indexOf(searchedText) > -1
+  //       let res2 = surname.indexOf(searchedText) > -1
+  //       if(res1 || res2) {
+  //         return user;
+  //       }else {
+  //         return console.log("no user feature")
+  //       }
+  //     })
+  //     console.log(filteredList)
+  //     setStudent(filteredList);
+  // }
 
-//? USER DELETE FUNCTİON
-const handleRemoveUser = async (userId) => {
-  const filteredUserList = student.filter(item => item.id !== userId);
-  // console.log(filteredUserList);
-  await axios.delete(`https://dummyjson.com/users/${userId}`)
-  setStudent(filteredUserList);
-};
+  //? USER DELETE
+  const handleRemoveUser = async (userId) => {
+    const filteredUserList = student.filter((item) => item.id !== userId);
+    // console.log(filteredUserList);
+    await axios.delete(`https://dummyjson.com/users/${userId}`);
+    setStudent(filteredUserList);
+  };
+
+  //? USER UPDATE
+  const handleUpdateUser = async (userId) => {
+    setUpdateModal(true);
+    const filteredUser = student.filter((item) => item.id == userId);
+    console.log(filteredUser);
+    setUser(filteredUser);
+    // await axios.put(`https://dummyjson.com/users/${userId}`, upValue);
+  };
+
+  const increasePage = () => {
+    return setPage(page + 1);
+  };
+  const decreasePage = () => {
+    return page === 0 ? setPage(0) : setPage(page - 1);
+  };
 
   useEffect(() => {
-    getUsers();   
+    getAllUsers();
   }, []);
-console.log(student);
+
+  useEffect(() => {
+    getUsers();
+  }, [page]);
+  console.log(student);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -72,7 +93,7 @@ console.log(student);
             type="search"
             placeholder="Search.."
             value={searchValue}
-            onChange={(e)=> setSearchValue(e.target.value)}
+            onChange={(e) => setSearchValue(e.target.value)}
           />
           <SearchIcon className={styles.searchIcon} />
           <button
@@ -96,21 +117,67 @@ console.log(student);
           <li className={styles.fieldText}>Company Name</li>
           <li className={styles.fieldText}></li>
         </ul>
-        {student?.filter((item) =>{
-          return searchValue.toLowerCase() === "" ? item : item.firstName.toLowerCase().includes(searchValue)
-        } ).map((user) => (
-          <UserCard user={user} key={user.id} handleRemoveUser={handleRemoveUser}/>
-        ))}
+        {student
+          ?.filter((item) => {
+            return searchValue.toLowerCase() === ""
+              ? item
+              : item.firstName.toLowerCase().includes(searchValue);
+          })
+          .map((user) => (
+            <UserCard
+              user={user}
+              key={user.id}
+              handleRemoveUser={handleRemoveUser}
+              handleUpdateUser={handleUpdateUser}
+            />
+          ))}
+      </div>
+      <div className="flex flex-row justify-end items-center">
+        <h6 className={styles.pagiText}>
+          Rows per page :
+          <select
+            onChange={(e) => setPage(e.target.value)}
+            className="mr-[48px] border-none bg-[#F8F8F8] text-[#4B506D] text-[14px] "
+          >
+            <option className={styles.option} value="6">
+              6
+            </option>
+            <option className={styles.option} value="12">
+              12
+            </option>
+            <option className={styles.option} value="18">
+              18
+            </option>
+            <option className={styles.option} value="18">
+              24
+            </option>
+            <option className={styles.option} value="18">
+              30
+            </option>
+          </select>
+        </h6>
+        <p className={styles.pagiText}>
+          1-{page} of {all} 
+        </p>
+        <ArrowLeft onClick={decreasePage}/> <ArrowRight onClick={increasePage} />
       </div>
       <div>
         {modal && (
-          <ModalForm
+          <CreateModalForm
             openModal={openModal}
             setOpenModal={setOpenModal}
-            value={value}
-            setValue={setValue}
-            initialValues={initialValues}
             setModal={setModal}
+          />
+        )}
+      </div>
+      <div>
+        {updateModal && (
+          <UpdateModalForm
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+            setUpdateModal={setUpdateModal}
+            user={user}
+            setUser={setUser}
           />
         )}
       </div>
