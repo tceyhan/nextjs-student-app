@@ -148,10 +148,10 @@ const StudenList = () => {
             <option className={styles.option} value="18">
               18
             </option>
-            <option className={styles.option} value="18">
+            <option className={styles.option} value="24">
               24
             </option>
-            <option className={styles.option} value="18">
+            <option className={styles.option} value="30">
               30
             </option>
           </select>
