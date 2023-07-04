@@ -5,14 +5,17 @@ import styles from "./styles.module.css";
 import { ArrowLeft, ArrowRight, SearchIcon } from "../../../public/icons";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import ModalForm from "../modal/ModalForm";
+import Form from "../form/Form";
 
 const StudenList = () => {
   const [student, setStudent] = useState([]);
-
+  const [modal, setModal] = useState(false); 
+  const [modalUp, setModalUp] = useState(false); 
   const [searchValue, setSearchValue] = useState("");
   const [page, setPage] = useState(6);
   const [all, setAll] = useState();
-  const [user, setUser] = useState();
+  const [userUp, setUserUp] = useState();
 
   const router = useRouter();
 
@@ -60,11 +63,11 @@ const StudenList = () => {
 
   //? USER UPDATE
   const handleUpdateUser = async (userId) => {
-    setUpdateModal(true);
+    setModal(true);
     const filteredUser = student.filter((item) => item.id == userId);
     console.log(filteredUser);
-    setUser(filteredUser);
-    // await axios.put(`https://dummyjson.com/users/${userId}`, upValue);
+    setUserUp(filteredUser);
+    await axios.put(`https://dummyjson.com/users/${userId}`,);
   };
 
   const increasePage = () => {
@@ -97,7 +100,8 @@ const StudenList = () => {
           <SearchIcon className={styles.searchIcon} />
           <button
             className={styles.btn}
-            onClick={() => router.push("/create")}
+            // onClick={() => router.push("/create")}
+            onClick={() => setModal(true)}
           >
             NEW ACCOUNT
           </button>
@@ -158,15 +162,8 @@ const StudenList = () => {
         <ArrowLeft onClick={decreasePage} />{" "}
         <ArrowRight onClick={increasePage} />
       </div>
-      <div>
-        {/* {modal && (
-          <CreateModalForm
-            openModal={openModal}
-            setOpenModal={setOpenModal}
-            setModal={setModal}
-          />
-        )} */}
-      </div>
+      <div>{modal && <ModalForm setModal={setModal} userUp={userUp} />}</div>
+      <div>{modalUp && <ModalForm setModal={setModal} userUp={userUp} />}</div>
     </div>
   );
 };

@@ -2,29 +2,30 @@
 
 import { Button, Label, Modal, TextInput } from "flowbite-react";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const UpdateModalForm = ({
-  openModal,
-  setOpenModal,
-  setUpdateModal,
-  user,
-  setUser,
-}) => {
-  const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
+const Form = ({ openModal, setOpenModal, setUpdateModal }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [domain, setDomain] = useState("");
+  const [company, setCompany] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios.post(`https://dummyjson.com/users/${params.id}`, user);
-
       setUpdateModal(false);
     } catch (error) {
       return console.log(error);
     }
   };
+  const inputRef = useRef(null);
+  // Her karakter girildiğinde inputa odaklanmak için useEffect kullanalım.
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   return (
     <>
@@ -46,11 +47,11 @@ const UpdateModalForm = ({
                   <Label htmlFor="firstname" value="First Name" />
                 </div>
                 <TextInput
-                  name="firstName"
+                 ref={inputRef}
                   id="firstname"
                   placeholder="Enter first name.."
-                  value={user?.firstName}
-                  onChange={handleChange}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   required
                 />
               </div>
@@ -59,11 +60,10 @@ const UpdateModalForm = ({
                   <Label htmlFor="lastname" value="Last Name" />
                 </div>
                 <TextInput
-                  name="lastName"
                   id="lastname"
                   placeholder="Enter last name.."
-                  value={user?.lastName}
-                  onChange={handleChange}
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   required
                 />
               </div>
@@ -72,11 +72,10 @@ const UpdateModalForm = ({
                   <Label htmlFor="email" value="Email" />
                 </div>
                 <TextInput
-                  name="email"
                   id="email"
                   placeholder="name@company.com"
-                  value={user?.email}
-                  onChange={handleChange}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
@@ -85,11 +84,10 @@ const UpdateModalForm = ({
                   <Label htmlFor="phone" value="Phone" />
                 </div>
                 <TextInput
-                  name="phone"
                   id="phone"
                   type="phone"
-                  value={user?.phone}
-                  onChange={handleChange}
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                   required
                 />
               </div>
@@ -98,10 +96,9 @@ const UpdateModalForm = ({
                   <Label htmlFor="website" value="Web Site" />
                 </div>
                 <TextInput
-                  name="domain"
                   id="website"
-                  value={user?.domain}
-                  onChange={handleChange}
+                  value={domain}
+                  onChange={(e) => setDomain(e.target.value)}
                   // required
                 />
               </div>
@@ -110,16 +107,15 @@ const UpdateModalForm = ({
                   <Label htmlFor="company" value="Company" />
                 </div>
                 <TextInput
-                  name="company"
                   id="company"
-                  value={user?.company}
-                  onChange={handleChange}
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
                   required
                 />
               </div>
               <div className="flex items-center justify-center mt-2">
                 <Button className="bg-[#FEAF00] w-full" type="submit">
-                  <p className="text-black text-lg font-bold">UPDATE</p>
+                  <p className="text-black text-lg font-bold">ADD</p>
                 </Button>
               </div>
             </form>
@@ -130,4 +126,4 @@ const UpdateModalForm = ({
   );
 };
 
-export default UpdateModalForm;
+export default Form;
