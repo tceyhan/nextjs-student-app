@@ -1,18 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 
 import Link from "next/link";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 import { LineIcon } from "../../public/icons";
 
 export default function SignIn() {
-  const router = useRouter()
-  const handleSubmit= (e) => {
+  const [value, setValue] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setValue({ ...value, [e.target.name]: e.target.value });
+    console.log(value);
+  };
+
+  const router = useRouter();
+  const handleSubmit = (e) => {
     e.preventDefault();
-    router.push('/dashboard')
-  }
+    router.push("/dashboard");
+  };
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-gradient-to-r from-[#feaf00] to-[#f8d442]">
       <form
@@ -40,8 +50,11 @@ export default function SignIn() {
           <TextInput
             className="placeholder:text-[#CDCDCD] bg-[#FFF] rounded border-solid border-[#E5E5E5]"
             id="email1"
+            name="email"
             placeholder="Enter your email"
             required
+            value={value.email}
+            onChange={handleChange}
             type="email"
           />
         </div>
@@ -52,8 +65,11 @@ export default function SignIn() {
           <TextInput
             className="placeholder:text-[#CDCDCD] bg-[#FFF] rounded border-solid border-[#E5E5E5]"
             id="password1"
+            name="password"
             required
             type="password"
+            value={value.password}
+            onChange={handleChange}
             placeholder="Enter your password"
           />
         </div>

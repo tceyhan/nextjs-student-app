@@ -3,25 +3,24 @@ import React, { useEffect, useState } from "react";
 import UserCard from "../userCard/UserCard";
 import styles from "./styles.module.css";
 import { ArrowLeft, ArrowRight, SearchIcon } from "../../../public/icons";
-import CreateModalForm from "../createModalForm/CreateModalForm";
-import UpdateModalForm from "../updateModal/UpdateModalForm";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const StudenList = () => {
   const [student, setStudent] = useState([]);
-  const [openModal, setOpenModal] = useState();
-  const [modal, setModal] = useState(false);
-  const [updateModal, setUpdateModal] = useState(false);
+
   const [searchValue, setSearchValue] = useState("");
   const [page, setPage] = useState(6);
   const [all, setAll] = useState();
   const [user, setUser] = useState();
 
+  const router = useRouter();
+
   const getAllUsers = async () => {
     let users = await fetch("https://dummyjson.com/users/").then((res) =>
       res.json()
     );
-    
+
     console.log("all", users);
     setAll(users.limit);
   };
@@ -98,10 +97,7 @@ const StudenList = () => {
           <SearchIcon className={styles.searchIcon} />
           <button
             className={styles.btn}
-            onClick={() => {
-              setOpenModal("form-elements");
-              setModal(true);
-            }}
+            onClick={() => router.push("/create")}
           >
             NEW ACCOUNT
           </button>
@@ -157,29 +153,19 @@ const StudenList = () => {
           </select>
         </h6>
         <p className={styles.pagiText}>
-          1-{page} of {all} 
+          1-{page} of {all}
         </p>
-        <ArrowLeft onClick={decreasePage}/> <ArrowRight onClick={increasePage} />
+        <ArrowLeft onClick={decreasePage} />{" "}
+        <ArrowRight onClick={increasePage} />
       </div>
       <div>
-        {modal && (
+        {/* {modal && (
           <CreateModalForm
             openModal={openModal}
             setOpenModal={setOpenModal}
             setModal={setModal}
           />
-        )}
-      </div>
-      <div>
-        {updateModal && (
-          <UpdateModalForm
-            openModal={openModal}
-            setOpenModal={setOpenModal}
-            setUpdateModal={setUpdateModal}
-            user={user}
-            setUser={setUser}
-          />
-        )}
+        )} */}
       </div>
     </div>
   );
