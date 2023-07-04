@@ -1,43 +1,76 @@
 "use client";
-
 import { Button, Label, TextInput } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+const initialValue = {
+  firstName:"",
+  lastName:"",
+  email:"",
+  phone:"",
+  domain:"",
+  company:{name:""},
+}
+const ModalForm = ({ setModal,userUp }) => {
+  const [createAndUpdateData,setCreateAndUpdateData] = useState(initialValue);
 
-const ModalForm = ({ setModal }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [domain, setDomain] = useState("");
-  const [company, setCompany] = useState("");
+ 
+useEffect(() => {
+if (!!userUp) {
+  setCreateAndUpdateData(userUp)
+}else{
+  setCreateAndUpdateData(initialValue)
+}
+
+
+},[userUp])
+console.log(userUp)
+
+const onChange = (e) => {
+  const {name,value} = e.target
+  setCreateAndUpdateData({...createAndUpdateData,[name] : value})
+}
 
   const handleSubmit = async (e) => {
-    const user = {
-      firstName,
-      lastName,
-      email,
-      phone,
-      domain,
-      company,
-    };
     e.preventDefault();
+    
+    console.log(e)
+    const user = {
+      firstName:createAndUpdateData.firstName,
+      lastName:createAndUpdateData.lastName,
+      email:createAndUpdateData.email,
+      phone:createAndUpdateData.phone,
+      domain:createAndUpdateData.domain,
+      company:{name : createAndUpdateData.company},
+    };
     console.log(user);
-    try {
-      await axios.post(`https://dummyjson.com/users/add`, user);
-    } catch (error) {
-      return console.log(error);
+    if (!userUp) {
+      try {
+        await axios.post(`https://dummyjson.com/users/add`, user);
+      } catch (error) {
+        return console.log(error);
+      }
+    }else{
+      try {
+        await axios.put(`https://dummyjson.com/users/${userUp.id}`, user);
+      } catch (error) {
+        return console.log(error);
+      }
     }
+   
   };
-
+console.log(createAndUpdateData)
   return (
     <div className="fixed inset-0  flex flex-col justify-center items-center bg-black bg-opacity-40 z-50">
       <div className="space-y-6 flex flex-row items-center justify-between bg-white rounded-lg p-8 w-96">
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-          Add New User
+          {userUp===null?"Add New User":"Update User"}
         </h3>
         <button
-          onClick={() => setModal(false)}
+          onClick={() => {
+             
+            setModal(false)
+           
+          }}
           className="flex  px-2 py-2 bg-[#FEAF00]  text-black rounded"
         >
           X
@@ -51,9 +84,10 @@ const ModalForm = ({ setModal }) => {
             </div>
             <TextInput
               id="firstname"
+              name="firstName"
               placeholder="Enter first name.."
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={createAndUpdateData.firstName}
+              onChange={(e) => onChange(e)}
               required
             />
           </div>
@@ -63,9 +97,10 @@ const ModalForm = ({ setModal }) => {
             </div>
             <TextInput
               id="lastname"
+              name="lastName"
               placeholder="Enter last name.."
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={createAndUpdateData.lastName}
+              onChange={(e) => onChange(e)}
               required
             />
           </div>
@@ -75,9 +110,10 @@ const ModalForm = ({ setModal }) => {
             </div>
             <TextInput
               id="email"
+              name="email"
               placeholder="name@company.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={createAndUpdateData.email}
+              onChange={(e) => onChange(e)}
               required
             />
           </div>
@@ -87,9 +123,10 @@ const ModalForm = ({ setModal }) => {
             </div>
             <TextInput
               id="phone"
+              name="phone"
               type="phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={createAndUpdateData.phone}
+              onChange={(e) => onChange(e)}
               required
             />
           </div>
@@ -99,9 +136,10 @@ const ModalForm = ({ setModal }) => {
             </div>
             <TextInput
               id="website"
-              value={domain}
-              onChange={(e) => setDomain(e.target.value)}
-              // required
+              name="domain"
+              value={createAndUpdateData.domain}
+              onChange={(e) => onChange(e)}
+              required
             />
           </div>
           <div>
@@ -110,14 +148,15 @@ const ModalForm = ({ setModal }) => {
             </div>
             <TextInput
               id="company"
-              value={company}
-              onChange={(e) => setCompany(e.target.value)}
+              name="company"
+              value={createAndUpdateData.company.name}
+              onChange={(e) => onChange(e)}
               required
             />
           </div>
           <div className="flex items-center justify-center mt-2">
             <Button className="bg-[#FEAF00] w-full hover:bg-[#FEDF00]" type="submit">
-              <p className="text-black text-lg font-bold">ADD</p>
+              <p className="text-black text-lg font-bold"> {userUp===null? "ADD":"UPDATE" }</p>
             </Button>
           </div>
         </form>

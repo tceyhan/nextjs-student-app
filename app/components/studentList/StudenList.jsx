@@ -6,12 +6,11 @@ import { ArrowLeft, ArrowRight, SearchIcon } from "../../../public/icons";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import ModalForm from "../modal/ModalForm";
-import Form from "../form/Form";
+
 
 const StudenList = () => {
   const [student, setStudent] = useState([]);
   const [modal, setModal] = useState(false); 
-  const [modalUp, setModalUp] = useState(false); 
   const [searchValue, setSearchValue] = useState("");
   const [page, setPage] = useState(6);
   const [all, setAll] = useState();
@@ -64,10 +63,10 @@ const StudenList = () => {
   //? USER UPDATE
   const handleUpdateUser = async (userId) => {
     setModal(true);
-    const filteredUser = student.filter((item) => item.id == userId);
-    console.log(filteredUser);
-    setUserUp(filteredUser);
-    await axios.put(`https://dummyjson.com/users/${userId}`,);
+      const filteredUser = student.find((item) => item.id == userId);
+      console.log(filteredUser);
+      setUserUp(filteredUser); 
+   
   };
 
   const increasePage = () => {
@@ -100,8 +99,11 @@ const StudenList = () => {
           <SearchIcon className={styles.searchIcon} />
           <button
             className={styles.btn}
-            // onClick={() => router.push("/create")}
-            onClick={() => setModal(true)}
+           
+            onClick={() => {
+              setModal(true)
+              setUserUp(null); 
+            }}
           >
             NEW ACCOUNT
           </button>
@@ -159,11 +161,11 @@ const StudenList = () => {
         <p className={styles.pagiText}>
           1-{page} of {all}
         </p>
-        <ArrowLeft onClick={decreasePage} />{" "}
+        <ArrowLeft onClick={decreasePage} />
         <ArrowRight onClick={increasePage} />
       </div>
-      <div>{modal && <ModalForm setModal={setModal} userUp={userUp} />}</div>
-      <div>{modalUp && <ModalForm setModal={setModal} userUp={userUp} />}</div>
+      <div>{modal && <ModalForm setModal={setModal} userUp={userUp}/>}</div>
+     
     </div>
   );
 };
