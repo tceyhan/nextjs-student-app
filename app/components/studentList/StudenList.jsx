@@ -24,7 +24,7 @@ const StudenList = () => {
     );
 
     console.log("all", users);
-    setAll(users.limit);
+    setAll(users.total);
   };
   const getUsers = async () => {
     let students = await fetch(
@@ -138,9 +138,9 @@ const StudenList = () => {
         <h6 className={styles.pagiText}>
           Rows per page :
           <select
-            onChange={(e) => setPage(e.target.value)}
+            onChange={(e) => setPage(Number(e.target.value))}
             className="mr-[48px] border-none bg-[#F8F8F8] text-[#4B506D] text-[14px] "
-          >
+          >          
             <option className={styles.option} value="6">
               6
             </option>
@@ -159,12 +159,12 @@ const StudenList = () => {
           </select>
         </h6>
         <p className={styles.pagiText}>
-          1-{page} of {all}
+          1{"-"}{page===0 ? 100 : page} of {all}
         </p>
         <ArrowLeft onClick={decreasePage} />
         <ArrowRight onClick={increasePage} />
       </div>
-      <div>{modal && <ModalForm setModal={setModal} userUp={userUp}/>}</div>
+      <div>{modal && <ModalForm setModal={setModal} userUp={userUp} student={student}setStudent={setStudent} />}</div>
      
     </div>
   );

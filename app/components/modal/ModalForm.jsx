@@ -8,9 +8,9 @@ const initialValue = {
   email:"",
   phone:"",
   domain:"",
-  company:{name:""},
+  company:"",
 }
-const ModalForm = ({ setModal,userUp }) => {
+const ModalForm = ({ setModal,userUp, student,setStudent }) => {
   const [createAndUpdateData,setCreateAndUpdateData] = useState(initialValue);
 
  
@@ -40,18 +40,23 @@ const onChange = (e) => {
       email:createAndUpdateData.email,
       phone:createAndUpdateData.phone,
       domain:createAndUpdateData.domain,
-      company:{name : createAndUpdateData.company},
+      company:createAndUpdateData.company,
     };
+    
     console.log(user);
     if (!userUp) {
       try {
         await axios.post(`https://dummyjson.com/users/add`, user);
+        await setStudent([...student,user])
+        setModal(false)
       } catch (error) {
         return console.log(error);
       }
     }else{
       try {
         await axios.put(`https://dummyjson.com/users/${userUp.id}`, user);
+        await setStudent([...student,{...userUp,...user}])
+        setModal(false)
       } catch (error) {
         return console.log(error);
       }
