@@ -1,19 +1,21 @@
-import './styles/globals.css'
-import { Montserrat } from 'next/font/google'
+import "./styles/globals.css";
+import { Montserrat } from "next/font/google";
+import { Suspense } from "react";
 
-const montserrat = Montserrat({ subsets: ['latin'] })
+
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata = {
-  title: 'TarıkCEYHAN-Sikayetvar Task',
-  description: 'next js ile task',
-}
+  title: "TarıkCEYHAN-Sikayetvar Task",
+  description: "next js ile task",
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body className={montserrat.className} suppressHydrationWarning={true} >
+      <body className={montserrat.className} suppressHydrationWarning={true}>
         {children}
       </body>
     </html>
-  )
+  );
 }
