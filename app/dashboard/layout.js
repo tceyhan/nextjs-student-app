@@ -5,7 +5,7 @@ import TopComp from "../components/topComponent/TopComp";
 function DashBoardLayout({ children }) {
   console.log(children);
   return (
-    <div className="flex  items-start justify-star">
+    <div className="flex  items-start justify-start">
       <AsideMenu  className="flex"/>
       <div className="flex flex-col">
         <TopComp />
