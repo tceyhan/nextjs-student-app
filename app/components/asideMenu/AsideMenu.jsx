@@ -31,7 +31,8 @@ const AsideMenu = () => {
           className={styles.img}
           src={avatar}
           alt="avatar"
-          priority={true}
+          placeholder="blur"
+          blurDataURL={styles.img}
         />
         <h4 className={styles.name}>John Doe</h4>
         <h5 className={styles.position}>Admin</h5>
