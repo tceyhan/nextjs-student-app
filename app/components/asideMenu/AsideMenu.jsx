@@ -31,7 +31,7 @@ const AsideMenu = () => {
           className={styles.img}
           src={avatar}
           alt="avatar"
-          priority={false}
+          priority={true}
         />
         <h4 className={styles.name}>John Doe</h4>
         <h5 className={styles.position}>Admin</h5>
@@ -41,7 +41,7 @@ const AsideMenu = () => {
           <Home className={styles.icon} />
           <h6 className={styles.menuName}>Home</h6>
         </Link>
-        <Link className={styles.menu} href="/course">
+        <Link className={styles.menu} href="/dashboard/course">
           <Bookmark className={styles.icon} />
           <h6 className={styles.menuName}>Course</h6>
         </Link>
@@ -49,15 +49,15 @@ const AsideMenu = () => {
           <Graduation className={styles.icon} />
           <h6 className={styles.menuName}>Students</h6>
         </Link>
-        <Link className={styles.menu} href="/payment">
+        <Link className={styles.menu} href="/dashboard/payment">
           <UsdSquare className={styles.icon} />
           <h6 className={styles.menuName}>Payment</h6>
         </Link>
-        <Link className={styles.menu} href="/report">
+        <Link className={styles.menu} href="/dashboard/report">
           <Report className={styles.icon} />
           <h6 className={styles.menuName}>Report</h6>
         </Link>
-        <Link className={styles.menu} href="/settings">
+        <Link className={styles.menu} href="/dashboard/settings">
           <Settings className={styles.icon} />
           <h6 className={styles.menuName}>Settings</h6>
         </Link>        

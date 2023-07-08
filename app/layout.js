@@ -1,4 +1,3 @@
-import './styles/reset.css'
 import './styles/globals.css'
 import { Montserrat } from 'next/font/google'
 
@@ -11,8 +10,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={montserrat.className}>
+    <html lang="en" suppressHydrationWarning={true}>
+      <body className={montserrat.className} suppressHydrationWarning={true} >
         {children}
       </body>
     </html>
