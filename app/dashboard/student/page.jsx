@@ -27,7 +27,7 @@ const StudenList = () => {
     let students = await fetch(
       `https://dummyjson.com/users?limit=${page}`
     ).then((res) => res.json());
-    console.log(students.users);
+    // console.log(students.users);
     setStudent(students.users);
   };
 
@@ -61,7 +61,9 @@ const StudenList = () => {
   useEffect(() => {
     getUsers();
   }, [page]);
+
   console.log(student);
+  
   return (
     <div className={styles.container}>
       <div className={styles.header}>
