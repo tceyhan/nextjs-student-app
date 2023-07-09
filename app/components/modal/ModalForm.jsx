@@ -2,79 +2,76 @@
 import { Button, Label, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 const initialValue = {
-  firstName:"",
-  lastName:"",
-  email:"",
-  phone:"",
-  domain:"",
-  company:"",
-}
-const ModalForm = ({ setModal,userUp, student,setStudent }) => {
-  const [createAndUpdateData,setCreateAndUpdateData] = useState(initialValue);
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  domain: "",
+  company: "",
+};
 
- 
-useEffect(() => {
-if (!!userUp) {
-  setCreateAndUpdateData(userUp)
-}else{
-  setCreateAndUpdateData(initialValue)
-}
+const ModalForm = ({ setModal, userUp, student, setStudent }) => {
+  const [createAndUpdateData, setCreateAndUpdateData] = useState(initialValue);
+  console.log(student.length);
 
+  useEffect(() => {
+    if (!!userUp) {
+      setCreateAndUpdateData(userUp);
+    } else {
+      setCreateAndUpdateData(initialValue);
+    }
+  }, [userUp]);
+  console.log(userUp);
 
-},[userUp])
-console.log(userUp)
-
-const onChange = (e) => {
-  const {name,value} = e.target
-  setCreateAndUpdateData({...createAndUpdateData,[name] : value})
-}
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setCreateAndUpdateData({ ...createAndUpdateData, [name]: value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    console.log(e)
+
     const user = {
-      firstName:createAndUpdateData.firstName,
-      lastName:createAndUpdateData.lastName,
-      email:createAndUpdateData.email,
-      phone:createAndUpdateData.phone,
-      domain:createAndUpdateData.domain,
-      company:createAndUpdateData.company,
+      id:student.length+1,
+      firstName: createAndUpdateData.firstName,
+      lastName: createAndUpdateData.lastName,
+      email: createAndUpdateData.email,
+      phone: createAndUpdateData.phone,
+      domain: createAndUpdateData.domain,
+      company: createAndUpdateData.company,
     };
-    
-    console.log(user);
+
+    console.log("modal user",user);
     if (!userUp) {
       try {
         await axios.post(`https://dummyjson.com/users/add`, user);
-        await setStudent([...student,user])
-        setModal(false)
+        await setStudent([...student, user]);
+        setModal(false);
       } catch (error) {
         return console.log(error);
       }
-    }else{
+    } else {
       try {
         await axios.put(`https://dummyjson.com/users/${userUp.id}`, user);
-        await setStudent([...student,{...userUp,...user}])
-        setModal(false)
+        await setStudent([...student, { ...userUp,...user }]);
+        setModal(false);
       } catch (error) {
         return console.log(error);
       }
     }
-   
   };
-console.log(createAndUpdateData)
+  console.log(createAndUpdateData);
   return (
     <div className="fixed inset-0  flex flex-col justify-center items-center bg-black bg-opacity-40 z-50">
       <div className="space-y-6 flex flex-row items-center justify-between bg-white rounded-lg p-8 w-96">
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-          {userUp===null?"Add New User":"Update User"}
+          {userUp === null ? "Add New User" : "Update User"}
         </h3>
         <button
           onClick={() => {
-             
-            setModal(false)
-           
+            setModal(false);
           }}
           className="flex  px-2 py-2 bg-[#FEAF00]  text-black rounded"
         >
@@ -160,8 +157,14 @@ console.log(createAndUpdateData)
             />
           </div>
           <div className="flex items-center justify-center mt-2">
-            <Button className="bg-[#FEAF00] w-full hover:bg-[#FEDF00]" type="submit">
-              <p className="text-black text-lg font-bold"> {userUp===null? "ADD":"UPDATE" }</p>
+            <Button
+              className="bg-[#FEAF00] w-full hover:bg-[#FEDF00]"
+              type="submit"
+            >
+              <p className="text-black text-lg font-bold">
+                {" "}
+                {userUp === null ? "ADD" : "UPDATE"}
+              </p>
             </Button>
           </div>
         </form>

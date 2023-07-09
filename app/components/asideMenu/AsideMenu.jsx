@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./styles.module.css";
 import Image from "next/image";
-import avatar from "../../../public/images/avatar.png";
+import avatar from "public/images/avatar.png";
 
 import {
   Bookmark,
@@ -14,7 +14,7 @@ import {
   Report,
   Settings,
   UsdSquare,
-} from "../../../public/icons";
+} from "public/icons";
 import Link from "next/link";
 
 const AsideMenu = () => {

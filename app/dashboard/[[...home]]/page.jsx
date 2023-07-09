@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { BookMarkHome, Kep, UsdSquareHome, UsersIcon } from "../../../public/icons";
+import { BookMarkHome, Kep, UsdSquareHome, UsersIcon } from "public/icons";
 import styles from "./styles.module.css";
 
 const HomeComp = () => {

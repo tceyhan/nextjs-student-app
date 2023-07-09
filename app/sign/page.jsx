@@ -5,7 +5,7 @@ import { Button, Label, TextInput } from "flowbite-react";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { LineIcon } from "../../public/icons";
+import { LineIcon } from "public/icons";
 
 export default function SignIn() {
   const [value, setValue] = useState({

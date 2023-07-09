@@ -2,21 +2,18 @@
 import React, { useEffect, useState } from "react";
 import UserCard from "../../components/userCard/UserCard";
 import styles from "./styles.module.css";
-import { ArrowLeft, ArrowRight, SearchIcon } from "../../../public/icons";
+import { ArrowLeft, ArrowRight, SearchIcon } from "public/icons";
 import axios from "axios";
-import { useRouter } from "next/navigation";
-import ModalForm from "../../components/modal/ModalForm";
 
+import ModalForm from "../../components/modal/ModalForm";
 
 const StudenList = () => {
   const [student, setStudent] = useState([]);
-  const [modal, setModal] = useState(false); 
+  const [modal, setModal] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [page, setPage] = useState(6);
   const [all, setAll] = useState();
   const [userUp, setUserUp] = useState();
-
-  const router = useRouter();
 
   const getAllUsers = async () => {
     let users = await fetch("https://dummyjson.com/users/").then((res) =>
@@ -45,10 +42,9 @@ const StudenList = () => {
   //? USER UPDATE
   const handleUpdateUser = async (userId) => {
     setModal(true);
-      const filteredUser = student.find((item) => item.id == userId);
-      console.log(filteredUser);
-      setUserUp(filteredUser); 
-   
+    const filteredUser = student.find((item) => item.id == userId);
+    console.log(filteredUser);
+    setUserUp(filteredUser);
   };
 
   const increasePage = () => {
@@ -81,10 +77,9 @@ const StudenList = () => {
           <SearchIcon className={styles.searchIcon} />
           <button
             className={styles.btn}
-           
             onClick={() => {
-              setModal(true)
-              setUserUp(null); 
+              setModal(true);
+              setUserUp(null);
             }}
           >
             NEW ACCOUNT
@@ -122,7 +117,7 @@ const StudenList = () => {
           <select
             onChange={(e) => setPage(Number(e.target.value))}
             className="mr-[48px] border-none bg-[#F8F8F8] text-[#4B506D] text-[14px] "
-          >          
+          >
             <option className={styles.option} value="6">
               6
             </option>
@@ -141,13 +136,23 @@ const StudenList = () => {
           </select>
         </h6>
         <p className={styles.pagiText}>
-          1{"-"}{page===0 ? 100 : page} of {all}
+          1{"-"}
+          {page === 0 ? { all } : page} of {all}
         </p>
         <ArrowLeft onClick={decreasePage} />
         <ArrowRight onClick={increasePage} />
       </div>
-      <div>{modal && <ModalForm setModal={setModal} userUp={userUp} student={student}setStudent={setStudent} />}</div>
-     
+      <div>
+        {modal && (
+          <ModalForm
+            setModal={setModal}
+            userUp={userUp}
+            student={student}
+            setStudent={setStudent}
+           
+          />
+        )}
+      </div>
     </div>
   );
 };
